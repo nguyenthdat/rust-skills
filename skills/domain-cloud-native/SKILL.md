@@ -73,7 +73,7 @@ From constraints to design (Layer 2):
 
 | Purpose | Crate |
 |---------|-------|
-| gRPC | tonic |
+| gRPC | tonic + prost (Protobuf); Cap'n Proto (capnp-rpc) when all peers are Rust/controlled |
 | Kubernetes | kube, kube-runtime |
 | Docker | bollard |
 | Tracing | tracing, opentelemetry |

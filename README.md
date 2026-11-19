@@ -178,6 +178,15 @@ See [.claude/settings.example.json](.claude/settings.example.json) for reference
 - **OpenCode**: See [.opencode/INSTALL.md](.opencode/INSTALL.md)
 - **Codex**: See [.codex/INSTALL.md](.codex/INSTALL.md)
 
+## TTSR Rules (oh-my-pi)
+
+`rules/*.md` are [oh-my-pi](https://github.com/can1357/oh-my-pi) Time-Traveling Stream Rules, loaded automatically
+when this repo is installed as an omp plugin. They watch Rust edits (`*.rs`, `Cargo.toml`) and inject a reminder when
+code drifts from the skills: Google Rust Style Guide (`rust-imports`, `rust-naming`, `rust-unwrap`, …), Rust 1.100
+idioms (`rust-never-type`, `rust-modern-std`), BoltFFI (`rust-ffi-boltffi`, `rust-ffi-boltffi-route`) and the
+serialization priority Cap'n Proto → Protobuf → JSON (`rust-serialization-priority`). Test one with
+`omp ttsr test --rule rules/<name>.md --path src/lib.rs '<snippet>'`.
+
 ## Dependent Skills
 
 Rust Skills relies on these external tools for full functionality:

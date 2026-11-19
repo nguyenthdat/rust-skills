@@ -88,8 +88,11 @@ User Question
 | learning Rust/mental model/why | m14-mental-model |
 | anti-pattern/code smell/common mistakes | m15-anti-pattern |
 | Rust version/crate version/latest features | rust-learner |
-| code style/naming/clippy | coding-guidelines |
+| code style/naming/clippy/Google style | coding-guidelines |
 | tokio related | tokio-* skills |
+| never type/let chains/new std APIs/MSRV idioms | rust-modern-features |
+| bindings/export to Swift, Kotlin, Python, C#, WASM | ffi-boltffi |
+| serialization format (capnp/protobuf/json) | m11-ecosystem |
 
 ## Special Cases
 
@@ -138,7 +141,7 @@ When creating new Rust projects or Cargo.toml files, use these defaults:
 ```toml
 [package]
 edition = "2024"  # ALWAYS use latest stable edition
-rust-version = "1.85"  # Minimum supported Rust version
+rust-version = "1.100"  # Current stable (2026-11-12): never type `!`, allocator API, DropGuard
 
 [lints.rust]
 unsafe_code = "warn"
@@ -150,5 +153,8 @@ pedantic = "warn"
 
 **Rules:**
 - ALWAYS use `edition = "2024"` (not 2021 or earlier)
-- Include `rust-version` for MSRV clarity
+- Include `rust-version` for MSRV clarity (default `1.100`; write code using 1.100 idioms → see `rust-modern-features`)
+- Code style follows `coding-guidelines` incl. Google Rust Style Guide (`google-style.md`)
+- Rust → other languages (Swift/Kotlin/Java/C#/Python/WASM): use **BoltFFI** → see `ffi-boltffi`
+- Serialization priority: **Cap'n Proto → Protobuf → JSON** → see `m11-ecosystem/serialization.md`
 - Enable clippy lints by default

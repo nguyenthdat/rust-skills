@@ -9,7 +9,7 @@ When creating Rust projects or Cargo.toml files, ALWAYS use:
 ```toml
 [package]
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.100"
 
 [lints.rust]
 unsafe_code = "warn"
@@ -36,6 +36,10 @@ Follow Rust coding guidelines:
 - Use SCREAMING_SNAKE_CASE for constants
 - Max line length: 100 characters
 - Use `?` operator instead of `unwrap()` in library code
+- Follow the Google Rust Style Guide rules in `skills/coding-guidelines/google-style.md`
+- Target Rust 1.100 idioms (`!` never type, let chains, `if let` guards, `cfg_select!`) — see `skills/rust-modern-features`
+- FFI to Swift/Kotlin/Java/C#/Python/WASM: BoltFFI (`skills/ffi-boltffi`)
+- Serialization priority: Cap'n Proto → Protobuf → JSON
 
 ### 3. Error Handling
 ```rust
