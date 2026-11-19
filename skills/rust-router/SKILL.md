@@ -21,7 +21,7 @@ globs: ["**/Cargo.toml", "**/*.rs"]
 
 # Rust Question Router
 
-> **Version:** 2.0.0 | **Last Updated:** 2025-01-22
+> **Version:** 2.1.0 | **Last Updated:** 2026-11-19 | **Rust baseline:** 1.100 stable
 >
 > **v2.0:** Context optimized - detailed examples moved to sub-files
 
@@ -116,7 +116,7 @@ When creating new Rust projects or Cargo.toml files, ALWAYS use:
 ```toml
 [package]
 edition = "2024"  # ALWAYS use latest stable edition
-rust-version = "1.85"
+rust-version = "1.100"  # current stable; idioms → rust-modern-features
 
 [lints.rust]
 unsafe_code = "warn"
@@ -140,6 +140,7 @@ pedantic = "warn"
 | Result, Error, panic, ?, anyhow, thiserror | m06-error-handling |
 | Send, Sync, thread, async, channel | m07-concurrency |
 | unsafe, FFI, extern, raw pointer, transmute | **unsafe-checker** |
+| bindings to Swift/Kotlin/Java/C#/Python/WASM, boltffi, mobile SDK | **ffi-boltffi** |
 
 ## Layer 2 Skills (Design Choices)
 
@@ -147,7 +148,8 @@ pedantic = "warn"
 |---------|----------|
 | domain model, business logic | m09-domain |
 | performance, optimization, benchmark | m10-performance |
-| integration, interop, bindings | m11-ecosystem |
+| integration, interop, crate choice | m11-ecosystem |
+| serialization format, capnp, protobuf, JSON | m11-ecosystem (`serialization.md`) |
 | resource lifecycle, RAII, Drop | m12-lifecycle |
 | domain error, recovery strategy | m13-domain-error |
 | mental model, how to think | m14-mental-model |
@@ -194,9 +196,11 @@ pedantic = "warn"
 | Pattern | Route To | Action |
 |---------|----------|--------|
 | latest version, what's new | **rust-learner** | Use agents |
+| never type, `!`, let chains, if-let guard, cfg_select, features ≤ 1.100 | **rust-modern-features** | Read skill |
 | API, docs, documentation | **docs-researcher** | Use agent |
-| code style, naming, clippy | **coding-guidelines** | Read skill |
+| code style, naming, clippy, Google style | **coding-guidelines** | Read skill |
 | unsafe code, FFI | **unsafe-checker** | Read skill |
+| export Rust to other languages | **ffi-boltffi** | Read skill |
 | code review | **os-checker** | See `integrations/os-checker.md` |
 
 ---
@@ -214,6 +218,7 @@ pedantic = "warn"
 | Keyword | Resolution |
 |---------|------------|
 | `unsafe` | **unsafe-checker** (more specific than m11) |
+| `FFI` / `bindings` | **ffi-boltffi** when exporting Rust → other languages; **unsafe-checker** for hand-written `extern` |
 | `error` | **m06** for general, **m13** for domain-specific |
 | `RAII` | **m12** for design, **m01** for implementation |
 | `crate` | **rust-learner** for version, **m11** for integration |

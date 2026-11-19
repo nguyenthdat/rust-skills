@@ -75,7 +75,7 @@ From constraints to design (Layer 2):
 | Decimal math | rust_decimal |
 | Date/time | chrono, time |
 | UUID | uuid |
-| Serialization | serde |
+| Serialization | Cap'n Proto (capnp) → Protobuf (prost) → JSON (serde_json); never floats in JSON for money |
 | Validation | validator |
 
 ## Design Patterns

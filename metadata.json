@@ -9,10 +9,10 @@
   "stats": {
     "meta_skills": 14,
     "domain_skills": 7,
-    "core_skills": 4,
+    "core_skills": 6,
     "utility_skills": 6,
     "experimental_skills": 1,
-    "total_skills": 32,
+    "total_skills": 34,
     "unsafe_rules": 47,
     "coding_guidelines": {
       "p_rules": 80,
@@ -28,7 +28,9 @@
       "rust-router",
       "rust-learner",
       "coding-guidelines",
-      "unsafe-checker"
+      "unsafe-checker",
+      "rust-modern-features",
+      "ffi-boltffi"
     ],
     "layer1_language_mechanics": [
       "m01-ownership",

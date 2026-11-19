@@ -134,6 +134,18 @@ Use ? → Need context?
 
 ---
 
+## Infallible Operations: the Never Type `!` (Rust 1.100+)
+
+| Situation | Write |
+|-----------|-------|
+| Trait requires an error type but it can't fail | `type Err = !;` (`Infallible` is now an alias of `!`) |
+| Unwrap a result that can't be `Err` | `let Ok(v) = r;` — no `unwrap()` needed |
+| Ignoring a generic `Result<T, E>` whose `T` isn't inferable | annotate: `create::<()>()?` (never-type fallback is `!` in all editions since 1.100) |
+
+See `rust-modern-features` for details.
+
+---
+
 ## Common Errors
 
 | Error | Cause | Fix |

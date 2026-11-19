@@ -1,6 +1,6 @@
 ---
 name: m11-ecosystem
-description: "Use when integrating crates or ecosystem questions. Keywords: E0425, E0433, E0603, crate, cargo, dependency, feature flag, workspace, which crate to use, using external C libraries, creating Python extensions, PyO3, wasm, WebAssembly, bindgen, cbindgen, napi-rs, cannot find, private, crate recommendation, best crate for, Cargo.toml, features, crate 推荐, 依赖管理, 特性标志, 工作空间, Python 绑定"
+description: "Use when integrating crates or ecosystem questions. Keywords: E0425, E0433, E0603, crate, cargo, dependency, feature flag, workspace, which crate to use, using external C libraries, creating Python extensions, PyO3, wasm, WebAssembly, bindgen, cbindgen, napi-rs, boltffi, uniffi, bindings, Swift, Kotlin, serialization format, Cap'n Proto, capnp, protobuf, prost, JSON, cannot find, private, crate recommendation, best crate for, Cargo.toml, features, crate 推荐, 依赖管理, 特性标志, 工作空间, Python 绑定"
 user-invocable: false
 ---
 
@@ -29,8 +29,8 @@ Before adding dependencies:
 
 | Need | Choice | Crates |
 |------|--------|--------|
-| Serialization | Derive-based | serde, serde_json |
-| Async runtime | tokio or async-std | tokio (most popular) |
+| Serialization | **Cap'n Proto → Protobuf → JSON** | capnp → prost/tonic → serde_json (see `serialization.md`) |
+| Async runtime | tokio | tokio (async-std is discontinued; use smol only for minimal runtimes) |
 | HTTP client | Ergonomic | reqwest |
 | HTTP server | Modern | axum, actix-web |
 | Database | SQL or ORM | sqlx, diesel |
@@ -101,11 +101,13 @@ To implementation (Layer 1):
 
 | Integration | Crate/Tool | Use Case |
 |-------------|------------|----------|
+| **Rust → Swift/Kotlin/Java/C#/Python/WASM-TS** | **`boltffi`** (default) | Mobile/desktop/web SDKs from one crate — see `ffi-boltffi` |
+| Rust → C | `boltffi` C target (experimental) or `cbindgen` | Export C headers |
 | C/C++ → Rust | `bindgen` | Auto-generate bindings |
-| Rust → C | `cbindgen` | Export C headers |
-| Python ↔ Rust | `pyo3` | Python extensions |
-| Node.js ↔ Rust | `napi-rs` | Node addons |
-| WebAssembly | `wasm-bindgen` | Browser/WASI |
+| C++ ↔ Rust | `cxx` | Bidirectional C++ interop |
+| Python ↔ Rust (Python-object aware) | `pyo3` + maturin | Extensions touching PyObject/GIL/numpy |
+| Node.js native addon | `napi-rs` | N-API-specific addons |
+| WebAssembly (DOM/web-sys heavy) | `wasm-bindgen` | Browser glue; plain compute libs → boltffi wasm target |
 
 ### Cargo Features
 
@@ -125,6 +127,14 @@ To implementation (Layer 1):
 | Feature not enabled | Optional feature | Enable in `features` |
 | Version conflict | Incompatible deps | `cargo update` or pin |
 | Duplicate types | Different crate versions | Unify in workspace |
+
+---
+
+## Serialization Priority (Project Rule)
+
+**Cap'n Proto → Protobuf → JSON.** Cap'n Proto for Rust/controlled peers, IPC and zero-copy hot paths;
+Protobuf (prost/tonic) for gRPC and cross-team multi-language schemas; JSON (serde_json) only for public/browser
+APIs, webhooks and debugging. Config files: TOML. Details: `serialization.md`.
 
 ---
 
@@ -157,6 +167,8 @@ To implementation (Layer 1):
 | When | See |
 |------|-----|
 | Error type design | m06-error-handling |
+| Rust → other-language bindings | ffi-boltffi |
+| Serialization format choice | `serialization.md` (this skill) |
 | Trait integration | m04-zero-cost |
 | FFI safety | unsafe-checker |
 | Resource management | m12-lifecycle |

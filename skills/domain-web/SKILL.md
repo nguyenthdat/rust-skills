@@ -84,7 +84,7 @@ From constraints to design (Layer 2):
 |---------|-------|
 | HTTP server | axum, actix-web |
 | HTTP client | reqwest |
-| JSON | serde_json |
+| Serialization | Public/browser API: serde_json · Internal service-to-service: Cap'n Proto → Protobuf (tonic) — see m11 `serialization.md` |
 | Auth/JWT | jsonwebtoken |
 | Session | tower-sessions |
 | Database | sqlx, diesel |

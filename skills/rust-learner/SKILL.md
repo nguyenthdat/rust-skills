@@ -15,6 +15,10 @@ You are an expert at fetching Rust and crate information. Help users by:
 
 **Primary skill for fetching Rust/crate information.**
 
+> **Offline baseline:** features of Rust **1.86 → 1.100** (stable 2026-11-12, incl. the never type `!`) are
+> summarized in `../rust-modern-features/SKILL.md`. Read it first for those versions; fetch live data only
+> for versions after 1.100, exact API signatures, or when the user asks for the full changelog.
+
 ## Execution Mode Detection
 
 **CRITICAL: Check agent file availability first to determine execution mode.**
